@@ -6,7 +6,6 @@ Vagrant.configure("2") do |config|
    config.vm.box = "centos7"
    config.vm.box_url = "https://github.com/tommy-muehle/puppet-vagrant-boxes/releases/download/1.1.0/centos-7.0-x86_64.box" 
    config.vm.synced_folder '/opt/vagrant', '/opt/vagrant'
-#   config.ssh.host = "10.7.0.55"
    config.ssh.forward_agent = true  
    config.ssh.insert_key = false
    config.vm.provider :virtualbox do |v|
@@ -34,6 +33,7 @@ Vagrant.configure("2") do |config|
   end
   end
   end
+  # client provisioning........
 config.vm.define "client" do |client|
    client.vm.hostname = "client"
    client.vm.network :private_network, ip: "10.7.1.4"
