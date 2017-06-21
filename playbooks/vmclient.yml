@@ -1,0 +1,22 @@
+---
+- hosts: client
+  become: yes
+  vars_files:
+    - vars.yml
+
+  tasks:
+   - name: Install pre-requites
+     yum: name={{item}} state=latest
+     with_items:
+        - attr
+        - fuse
+        - fuse-libs
+        - glusterfs-client
+   - name: Ensure Gluster volume is mounted on client side.
+     mount:
+        name: "{{ gluster_mount_dir }}"
+        src: "10.7.1.2:/{{ gluster_brick_name }}"
+        fstype: glusterfs
+        opts: "defaults,_netdev"
+        state: mounted
+
